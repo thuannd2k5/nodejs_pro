@@ -1,0 +1,21 @@
+{
+  "name": "nodejs_pro",
+  "version": "1.0.0",
+  "description": "hanh trinh nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Nodejs",
+    "Express"
+  ],
+  "author": "nguyenducthuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thuannd2k5/nodejs_pro"
+  },
+  "dependencies": {
+    "express": "5.0.1"
+  }
+}
