@@ -3,7 +3,7 @@ import express from 'express';
 
 import 'dotenv/config'
 import { dirname } from 'path';
-
+import webRoutes from './routes/web';
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -11,14 +11,11 @@ const PORT = process.env.PORT || 8080;
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
+//config routes
+webRoutes(app);
 
-app.get('/', (req, res) => {
-    res.render("home.ejs")
-})
-
-app.get('/thuan', (req, res) => {
-    res.send('nguyenducthuan')
-})
+//config static file
+app.use(express.static('public'))
 
 app.listen(8080, () => {
     console.log(`my app is running on port : ${PORT}`);
