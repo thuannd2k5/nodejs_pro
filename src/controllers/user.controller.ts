@@ -23,4 +23,11 @@ const postCreateUserPage = async (req: Request, res: Response) => {
     return res.redirect("/")
 }
 
-export { getHomePage, getCreateUserPage, postCreateUserPage };
+const postDeleteUserPage = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    console.log(">>> Check req.params: ", req.params.id);
+    return res.redirect("/")
+}
+
+
+export { getHomePage, getCreateUserPage, postCreateUserPage, postDeleteUserPage };
