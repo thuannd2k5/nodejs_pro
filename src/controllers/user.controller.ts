@@ -39,12 +39,10 @@ const getViewUser = async (req: Request, res: Response) => {
 
 
 const postUpdateUser = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { fullName, email, address } = req.body;
-    console.log(">>> check id: ", id);
-    console.log(">>> check body: ", req.body);
+    const { id, fullName, email, address } = req.body;
+
     //handle update user
-    await handleUpdateUser(fullName, email, address, "1");
+    await handleUpdateUser(fullName, email, address, id);
 
     return res.redirect("/")
 }
