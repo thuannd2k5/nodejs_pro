@@ -11,9 +11,11 @@ const handleCreateUser = async (
 
     const newUser = await prisma.user.create({
         data: {
-            name: fullName,
-            email: email,
-            address: address
+            fullname: fullName,
+            username: email,
+            address: address,
+            accountType: "",
+            password: "",
         }
     })
     return newUser;
@@ -49,9 +51,12 @@ const handleUpdateUser = async (
             id: Number(id),
         },
         data: {
-            name: fullName,
-            email: email,
-            address: address
+            fullname: fullName,
+            username: email,
+            address: address,
+            accountType: "USER",
+            password: "123456",
+
         },
     })
 

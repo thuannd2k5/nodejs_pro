@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config'
 import webRoutes from './routes/web';
+import initDatabase from 'config/seed';
 
 
 const app = express();
@@ -20,6 +21,9 @@ app.use(express.static('public'))
 
 //config routes
 webRoutes(app);
+
+//seeding data
+initDatabase();
 
 
 app.listen(8080, () => {
