@@ -13,8 +13,8 @@ const webRoutes = (app: Express) => {
 
     router.get('/', getHomePage);
 
-    router.get('/create-user', getCreateUserPage);
-    router.post('/handle-create-user', postCreateUserPage);
+
+
     router.post('/handle-delete-user/:id', postDeleteUserPage);
     router.get('/handle-view-user/:id', getViewUser);
     router.post('/handle-update-user', postUpdateUser)
@@ -23,6 +23,7 @@ const webRoutes = (app: Express) => {
     router.get('/admin', getDashboardPage);
     router.get('/admin/user', getAdminUserPage);
     router.get('/admin/create-user', getCreateUserPage);
+    router.post('/admin/handle-create-user', postCreateUserPage);
 
     router.get('/admin/product', getAdminProductPage);
     router.get('/admin/order', getAdminOrderPage);
