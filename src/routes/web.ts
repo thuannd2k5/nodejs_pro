@@ -17,7 +17,7 @@ const webRoutes = (app: Express) => {
 
 
 
-    router.post('/handle-update-user', postUpdateUser)
+
 
     //admin
     router.get('/admin', getDashboardPage);
@@ -26,6 +26,7 @@ const webRoutes = (app: Express) => {
     router.post('/admin/handle-create-user', fileUploadMiddleware("avatar"), postCreateUserPage);
     router.post('/admin/handle-delete-user/:id', postDeleteUserPage);
     router.get('/admin/view-user/:id', getViewUser);
+    router.post('/admin/update-user', fileUploadMiddleware("avatar"), postUpdateUser)
 
 
 

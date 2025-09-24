@@ -45,12 +45,14 @@ const getViewUser = async (req: Request, res: Response) => {
 
 
 const postUpdateUser = async (req: Request, res: Response) => {
-    const { id, fullName, email, address } = req.body;
+    const { id, fullName, username, phone, role, address } = req.body;
 
-    //handle update user
-    await handleUpdateUser(fullName, email, address, id);
+    const file = req.file;
+    const avatar = file?.filename ?? undefined;
 
-    return res.redirect("/")
+    await handleUpdateUser(id, fullName, phone, role, avatar, address);
+
+    return res.redirect("/admin/user")
 }
 
 export {
