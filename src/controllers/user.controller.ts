@@ -22,7 +22,7 @@ const postCreateUserPage = async (req: Request, res: Response) => {
     const file = req.file;
     const avatar = file?.filename ?? null;
     //handle create user
-    await handleCreateUser(fullName, username, address, phone, avatar);
+    await handleCreateUser(fullName, username, address, phone, avatar, role);
 
     return res.redirect("/admin")
 }
@@ -30,7 +30,7 @@ const postCreateUserPage = async (req: Request, res: Response) => {
 const postDeleteUserPage = async (req: Request, res: Response) => {
     const { id } = req.params;
     await handleDeleteUser(id);
-    return res.redirect("/")
+    return res.redirect("/admin/user")
 }
 
 const getViewUser = async (req: Request, res: Response) => {
