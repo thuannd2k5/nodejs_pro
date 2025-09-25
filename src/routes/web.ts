@@ -8,12 +8,14 @@ import { getAdminUserPage } from 'controllers/admin/user.controller';
 import { getAdminProductPage } from 'controllers/admin/product.controller';
 import { getAdminOrderPage } from 'controllers/admin/order.controller';
 import fileUploadMiddleware from 'src/middleware/multer';
+import { getProductDetail } from 'controllers/client/product/product.controller';
 
 const router = express.Router();
 
 const webRoutes = (app: Express) => {
 
     router.get('/', getHomePage);
+    router.get('/product/:id', getProductDetail);
 
 
 
