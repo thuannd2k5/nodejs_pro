@@ -73,10 +73,11 @@ const postDeleteProduct = async (req: Request, res: Response) => {
     return res.redirect("/admin/product")
 }
 
+
 const postUpdateProduct = async (req: Request, res: Response) => {
     const { id, name, price, detailDesc, shortDesc, quantity, factory, target } = req.body as TProductSchema;
 
-    const image = req?.file?.filename ?? null;
+    const image = req?.file?.filename ?? undefined;
 
     await handleUpdateProduct(+id, name, +price, detailDesc, shortDesc, +quantity, factory, target, image);
 
