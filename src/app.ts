@@ -25,6 +25,10 @@ webRoutes(app);
 //seeding data
 initDatabase();
 
+//handle 404 not found
+app.use((req, res) => {
+    res.send("404 Not Found");
+});
 
 app.listen(8080, () => {
     console.log(`my app is running on port : ${PORT}`);
