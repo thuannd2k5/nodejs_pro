@@ -10,6 +10,8 @@ import { getAdminOrderPage } from 'controllers/admin/order.controller';
 import fileUploadMiddleware from 'src/middleware/multer';
 import { getProductDetail } from 'controllers/client/product/product.controller';
 import { getLoginPage, getRegisterPage, postRegister } from 'controllers/auth/auth.controller';
+import passport from 'passport';
+
 
 const router = express.Router();
 
@@ -21,7 +23,10 @@ const webRoutes = (app: Express) => {
     router.get('/register', getRegisterPage)
     router.get('/login', getLoginPage)
     router.post('/register', postRegister)
-
+    router.post('/login', passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    }));
 
 
 

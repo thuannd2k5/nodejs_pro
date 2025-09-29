@@ -1,7 +1,9 @@
 import express from 'express';
 import 'dotenv/config'
-import webRoutes from './routes/web';
+import webRoutes from 'src/routes/web';
 import initDatabase from 'config/seed';
+import passport from 'passport';
+import configPassportLocal from 'src/middleware/passport.local';
 
 
 const app = express();
@@ -17,6 +19,12 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 //config static file
 app.use(express.static('public'))
+
+//config passport
+app.use(passport.initialize());
+configPassportLocal();
+
+
 
 
 //config routes
