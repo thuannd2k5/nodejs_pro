@@ -47,4 +47,12 @@ const postRegister = async (req: Request, res: Response) => {
     return res.redirect("/login")
 }
 
-export { getRegisterPage, getLoginPage, postRegister }
+const getSuccessRedirectPage = async (req: Request, res: Response) => {
+    const user = req.user as any;
+    if (user?.role?.name === 'ADMIN') {
+        res.redirect('/admin')
+    } else res.redirect('/')
+
+}
+
+export { getRegisterPage, getLoginPage, postRegister, getSuccessRedirectPage }
