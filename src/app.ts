@@ -25,15 +25,17 @@ app.use(express.static('public'))
 
 app.use(session({
     cookie: {
+        //7 day
         maxAge: 7 * 24 * 60 * 60 * 1000 // ms
     },
     secret: 'a santa at nasa',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: new PrismaSessionStore(
         new PrismaClient(),
         {
-            checkPeriod: 2 * 60 * 1000,  //ms
+            //clear session every 1 day
+            checkPeriod: 1 * 24 * 60 * 60 * 1000,  //ms
             dbRecordIdIsSessionId: true,
             dbRecordIdFunction: undefined,
         }
