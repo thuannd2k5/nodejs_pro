@@ -4,6 +4,7 @@ import webRoutes from 'src/routes/web';
 import initDatabase from 'config/seed';
 import passport from 'passport';
 import configPassportLocal from 'src/middleware/passport.local';
+import session from 'express-session';
 
 
 const app = express();
@@ -20,8 +21,18 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 //config static file
 app.use(express.static('public'))
 
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}))
+
+
 //config passport
 app.use(passport.initialize());
+app.use(passport.authenticate('session'));
+
 configPassportLocal();
 
 
