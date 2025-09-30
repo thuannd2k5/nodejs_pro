@@ -11,6 +11,7 @@ import fileUploadMiddleware from 'src/middleware/multer';
 import { getProductDetail } from 'controllers/client/product/product.controller';
 import { getLoginPage, getRegisterPage, postRegister } from 'controllers/auth/auth.controller';
 import passport from 'passport';
+import { isLogin } from 'src/middleware/auth';
 
 
 const router = express.Router();
@@ -21,7 +22,7 @@ const webRoutes = (app: Express) => {
     router.get('/product/:id', getProductDetail);
     //auth
     router.get('/register', getRegisterPage)
-    router.get('/login', getLoginPage)
+    router.get('/login', isLogin, getLoginPage)
     router.post('/register', postRegister)
     router.post('/login', passport.authenticate('local', {
         successRedirect: '/',
