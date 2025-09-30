@@ -9,7 +9,7 @@ import { getAdminProductPage, getCreateAdminProductPage, getViewProduct, postCre
 import { getAdminOrderPage } from 'controllers/admin/order.controller';
 import fileUploadMiddleware from 'src/middleware/multer';
 import { getProductDetail } from 'controllers/client/product/product.controller';
-import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postRegister } from 'controllers/auth/auth.controller';
+import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postLogout, postRegister } from 'controllers/auth/auth.controller';
 import passport from 'passport';
 import { isAdmin, isLogin } from 'src/middleware/auth';
 
@@ -30,7 +30,7 @@ const webRoutes = (app: Express) => {
         failureRedirect: '/login',
         failureMessage: true
     }));
-
+    router.post('/logout', postLogout)
 
 
     //admin
