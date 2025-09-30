@@ -11,7 +11,7 @@ import fileUploadMiddleware from 'src/middleware/multer';
 import { getProductDetail } from 'controllers/client/product/product.controller';
 import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postLogout, postRegister } from 'controllers/auth/auth.controller';
 import passport from 'passport';
-import { isAdmin, isLogin } from 'src/middleware/auth';
+import { isAdmin } from 'src/middleware/auth';
 
 
 const router = express.Router();
@@ -22,8 +22,9 @@ const webRoutes = (app: Express) => {
     router.get('/product/:id', getProductDetail);
     //auth
     router.get('/success-redirect', getSuccessRedirectPage)
+    router.get('/login', getLoginPage)
+
     router.get('/register', getRegisterPage)
-    router.get('/login', isLogin, getLoginPage)
     router.post('/register', postRegister)
     router.post('/login', passport.authenticate('local', {
         successRedirect: '/success-redirect',
@@ -34,7 +35,7 @@ const webRoutes = (app: Express) => {
 
 
     //admin
-    router.get('/admin', isAdmin, getDashboardPage);
+    router.get('/admin', getDashboardPage);
     router.get('/admin/user', getAdminUserPage);
     router.get('/admin/create-user', getCreateUserPage);
     router.post('/admin/handle-create-user', fileUploadMiddleware("avatar"), postCreateUserPage);
@@ -59,7 +60,7 @@ const webRoutes = (app: Express) => {
 
 
 
-    app.use('/', router)
+    app.use('/', isAdmin, router)
 }
 
 export default webRoutes;
