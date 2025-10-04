@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getOrderDetailAdmin } from "services/admin/order.service";
+import { getOrderDetailAdmin, getOrderHistoryAdmin } from "services/admin/order.service";
 
 
 const getDashboardPage = async (req: Request, res: Response) => {
@@ -15,4 +15,17 @@ const getAdminOrderDetailPage = async (req: Request, res: Response) => {
     })
 }
 
-export { getDashboardPage, getAdminOrderDetailPage }
+const getAminOrderHistory = async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) {
+        return res.redirect("/login");
+    }
+    const orderHistory = await getOrderHistoryAdmin(user.id);
+
+    return res.render("client/product/history", {
+        orderHistory
+    })
+}
+
+export { getDashboardPage, getAdminOrderDetailPage, getAminOrderHistory }
+

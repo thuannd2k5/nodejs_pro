@@ -20,4 +20,20 @@ const getOrderDetailAdmin = async (id: number) => {
     })
 }
 
-export { getAllOrder, getOrderDetailAdmin }
+const getOrderHistoryAdmin = async (id: number) => {
+    return await prisma.order.findMany({
+        where: {
+            userId: id
+        },
+        include: {
+            orderDetails: {
+                include: {
+                    product: true
+                }
+            }
+        }
+    })
+}
+
+
+export { getAllOrder, getOrderDetailAdmin, getOrderHistoryAdmin }
