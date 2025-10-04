@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addProductToCart, getProductById, getProductInCart, postDeleteProductInCartById, updateCartDetailBeforeCheckout } from "services/client/item.service";
+import { addProductToCart, getProductById, getProductInCart, handlerPlaceOrder, postDeleteProductInCartById, updateCartDetailBeforeCheckout } from "services/client/item.service";
 
 const getProductDetail = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -80,9 +80,24 @@ const postHandleCartToCheckout = async (req: Request, res: Response) => {
     return res.redirect("/checkout")
 }
 
+const postPlaceOrder = async (req: Request, res: Response) => {
+    const user = req.user;
+
+    if (!user) return res.redirect("/login")
+    const { receiverName, receiverAddress, receiverPhone, totalPrice } = req.body;
+    await handlerPlaceOrder(user.id, receiverName, receiverAddress, receiverPhone, +totalPrice);
+    return res.redirect('/thanks')
+}
+
+const getThanksPage = async (req: Request, res: Response) => {
+    const user = req.user;
+
+    if (!user) return res.redirect("/login")
+
+    return res.render('client/product/thanks')
+}
 
 export {
-    getProductDetail, postAddProductToCart,
-    getCartPage, postDeleteProductInCart,
-    getCheckoutPage, postHandleCartToCheckout
+    getProductDetail, postAddProductToCart, getCartPage, postDeleteProductInCart,
+    getCheckoutPage, postHandleCartToCheckout, postPlaceOrder, getThanksPage
 }
