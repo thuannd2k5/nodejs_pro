@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Order - SB Admin</title>
+    <link href="/admin/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <%- include('../layout/header'); -%>
+
+        <div id="layoutSidenav">
+            <%- include('../layout/sidenav'); -%>
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Manage Order</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/admin">Order</a></li>
+                            <li class="breadcrumb-item active">Order</li>
+                        </ol>
+                        <div>
+
+                            <hr />
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <th>Sản phẩm</th>
+                                    <th>Tên</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+
+                                </thead>
+                                <tbody>
+                                    <% orderDetails.forEach( function (orderDetail, index) { %>
+
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="d-flex align-items-center">
+                                                    <img class="img-fluid me-5 rounded-circle"
+                                                        style="height: 80px;width: 80px;"
+                                                        src="/images/product/<%=orderDetail.product.image %>" />
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <p class="mb-0 mt-4">
+                                                    <a href="/product/<%=orderDetail.product.id%>" target="_blank">
+                                                        <%= orderDetail.product.name %>
+                                                    </a>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0 mt-4">
+                                                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                                                        currency: 'VND' }).format(orderDetail.product.price) %>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                                    <input type="text"
+                                                        class="form-control form-control-sm text-center border-0"
+                                                        value="<%= orderDetail.quantity %>" disabled>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0 mt-4">
+                                                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                                                        currency: 'VND' }).format(orderDetail.price *
+                                                        orderDetail.quantity) %>
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="/admin/order" class="btn btn-success mt-3">Back</a>
+                    </div>
+
+                    <%- include('../layout/footer'); -%>
+                </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <script src="/admin/js/scripts.js"></script>
+
+</body>
+
+</html>

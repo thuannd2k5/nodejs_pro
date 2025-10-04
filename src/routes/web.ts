@@ -3,7 +3,7 @@ import {
     getCreateUserPage, getHomePage,
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser,
 } from 'controllers/user.controller';
-import { getDashboardPage } from 'controllers/admin/dashboard.controller';
+import { getAdminOrderDetailPage, getDashboardPage } from 'controllers/admin/dashboard.controller';
 import { getAdminUserPage } from 'controllers/admin/user.controller';
 import { getAdminProductPage, getCreateAdminProductPage, getViewProduct, postCreateAdminProduct, postDeleteProduct, postUpdateProduct, } from 'controllers/admin/product.controller';
 import { getAdminOrderPage } from 'controllers/admin/order.controller';
@@ -63,6 +63,7 @@ const webRoutes = (app: Express) => {
 
 
     router.get('/admin/order', getAdminOrderPage);
+    router.get('/admin/order/:id', getAdminOrderDetailPage)
 
 
 
