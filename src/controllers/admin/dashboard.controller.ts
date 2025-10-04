@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+import { getDashBoardInfo } from "services/admin/dashboard.service";
 import { getOrderDetailAdmin, getOrderHistoryAdmin } from "services/admin/order.service";
 
 
 const getDashboardPage = async (req: Request, res: Response) => {
-    return res.render("admin/dashboard/show")
+    const info = await getDashBoardInfo();
+    return res.render("admin/dashboard/show", {
+        info
+    })
 }
 
 const getAdminOrderDetailPage = async (req: Request, res: Response) => {
