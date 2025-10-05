@@ -16,7 +16,7 @@ const getAdminUserPage = async (req: Request, res: Response) => {
     return res.render("admin/user/show", {
         users: users,
         totalPages: +totalPages,
-        page: +page
+        page: +currentPage
     })
 }
 

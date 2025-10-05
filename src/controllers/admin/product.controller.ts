@@ -15,7 +15,7 @@ const getAdminProductPage = async (req: Request, res: Response) => {
     return res.render("admin/product/show", {
         productList,
         totalPages: +totalPages,
-        page: +page
+        page: +currentPage
     })
 }
 

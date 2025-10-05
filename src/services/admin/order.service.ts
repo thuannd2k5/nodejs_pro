@@ -1,11 +1,27 @@
 import { prisma } from "config/client";
+import { TOTAL_ITEMS_PER_PAGE } from "config/constant";
 
-const getAllOrder = async () => {
-    return await prisma.order.findMany({
+const getAllOrder = async (page: number) => {
+    const pageSize = TOTAL_ITEMS_PER_PAGE;
+    const skip = (page - 1) * pageSize
+    const order = prisma.order.findMany({
+        skip: skip,
+        take: pageSize,
         include: {
             user: true
         }
     });
+
+    return order;
+}
+
+const countTotalOrderPages = async () => {
+
+    const pageSize = TOTAL_ITEMS_PER_PAGE;
+    const totalItems = await prisma.order.count();
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    return totalPages;
 }
 
 
@@ -36,4 +52,4 @@ const getOrderHistoryAdmin = async (id: number) => {
 }
 
 
-export { getAllOrder, getOrderDetailAdmin, getOrderHistoryAdmin }
+export { getAllOrder, getOrderDetailAdmin, getOrderHistoryAdmin, countTotalOrderPages }
