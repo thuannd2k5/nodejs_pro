@@ -1,11 +1,22 @@
 import { Request, Response } from "express";
-import { getAllProduct, getProductById, handleCreateProduct, handleUpdateProduct, postDeleteProductById } from "services/admin/product.service";
+import { countTotalProductPages, getAllProduct, getProductById, handleCreateProduct, handleUpdateProduct, postDeleteProductById } from "services/admin/product.service";
 import { ProductSchema, TProductSchema } from "src/validation/Product.schema";
 
 
 const getAdminProductPage = async (req: Request, res: Response) => {
-    const productList = await getAllProduct();
-    return res.render("admin/product/show", { productList })
+    const { page } = req.query;
+
+    let currentPage = page ? +page : 1;
+    if (currentPage <= 0) {
+        currentPage = 1;
+    }
+    const totalPages = await countTotalProductPages();
+    const productList = await getAllProduct(currentPage);
+    return res.render("admin/product/show", {
+        productList,
+        totalPages: +totalPages,
+        page: +page
+    })
 }
 
 
