@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import {
     getCreateUserPage, getHomePage,
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser,
+    getProductFilterPage,
 } from 'controllers/user.controller';
 import { getAdminOrderDetailPage, getAminOrderHistory, getDashboardPage } from 'controllers/admin/dashboard.controller';
 import { getAdminUserPage } from 'controllers/admin/user.controller';
@@ -19,6 +20,7 @@ const router = express.Router();
 const webRoutes = (app: Express) => {
 
     router.get('/', getHomePage);
+    router.get('/products', getProductFilterPage);
     router.get('/product/:id', getProductDetail);
     //auth
     router.get('/success-redirect', getSuccessRedirectPage)
