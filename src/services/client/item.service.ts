@@ -139,17 +139,30 @@ const postDeleteProductInCartById = async (cartDetailId: number, userId: number,
     }
 }
 
-const updateCartDetailBeforeCheckout = async (data: { id: string; quantity: string }[]) => {
+const updateCartDetailBeforeCheckout = async (data: { id: string; quantity: string }[], cartId: string) => {
+
+    let quantity = 0;
     for (let i = 0; i < data.length; i++) {
+        quantity += +(data[i].quantity);
         await prisma.cartDetail.update({
             where: {
                 id: (+data[i].id)
             },
             data: {
-                quantity: +data[i].quantity
+                quantity: +(data[i].quantity)
             }
         })
     }
+
+    //update cart sum 
+    await prisma.cart.update({
+        where: {
+            id: +cartId
+        },
+        data: {
+            sum: quantity
+        }
+    })
 
 }
 
