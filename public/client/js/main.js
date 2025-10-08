@@ -233,7 +233,96 @@
             link.removeClass('active'); // Remove 'active' class if the href does not match
         }
     });
-    //add pagination
+    const params = new URLSearchParams(window.location.search);
+
+    //handle filter products
+    $('#btnFilter').click(function (event) {
+        event.preventDefault();
+
+        let factoryArr = [];
+        let targetArr = [];
+        let priceArr = [];
+
+        //factory filter
+        $('#factoryFilter .form-check-input:checked').each(function () {
+            factoryArr.push($(this).val());
+        });
+
+        //target filter
+        $('#targetFilter .form-check-input:checked').each(function () {
+            targetArr.push($(this).val());
+        });
+
+        //price filter
+        $('#priceFilter .form-check-input:checked').each(function () {
+            priceArr.push($(this).val());
+        });
+
+        //sort order
+        let sortValue = $('input[name="sort"]:checked').val();
+
+        const currentUrl = new URL(window.location.href);
+        const searchParams = currentUrl.searchParams;
+
+        const currentPage = searchParams.get('page') ?? '1';
+
+        //add or update query parameters
+        searchParams.set('page', currentPage);
+        searchParams.set('sort', sortValue);
+
+        //reset
+        searchParams.delete('factory');
+        searchParams.delete('target');
+        searchParams.delete('price');
+
+        if (factoryArr.length > 0) {
+            searchParams.set('factory', factoryArr.join(','));
+        }
+
+        if (targetArr.length > 0) {
+            searchParams.set('target', targetArr.join(','));
+        }
+
+        if (priceArr.length > 0) {
+            searchParams.set('price', priceArr.join(","))
+        }
+
+        //update the url and reload the page
+        window.location.href = currentUrl.toString();
+
+    })
+
+
+    // set checkboxes for 'factory'
+    if (params.has('factory')) {
+        const factories = params.get('factory').split(',');
+        factories.forEach(factory => {
+            $(`#factoryFilter .form-check-input[value="${factory}"]`).prop('checked', true);
+        });
+    }
+
+    // set checkboxes for 'target'
+    if (params.has('target')) {
+        const targets = params.get('target').split(',');
+        targets.forEach(target => {
+            $(`#targetFilter .form-check-input[value="${target}"]`).prop('checked', true);
+        });
+    }
+
+    // set checkboxes for 'price'
+    if (params.has('price')) {
+        const prices = params.get('price').split(',');
+        prices.forEach(price => {
+            $(`#priceFilter .form-check-input[value="${price}"]`).prop('checked', true);
+        });
+    }
+
+    // set radio for 'sort'
+    if (params.has('sort')) {
+        const sortValue = params.get('sort');
+        $(`input[name="sort"][value="${sortValue}"]`).prop('checked', true);
+    }
+
 
 })(jQuery);
 
