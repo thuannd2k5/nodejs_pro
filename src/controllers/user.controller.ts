@@ -95,7 +95,15 @@ const postUpdateUser = async (req: Request, res: Response) => {
     return res.redirect("/admin/user")
 }
 
+const getAi = async (req: Request, res: Response) => {
+    return res.render("client/ai");
+}
+
+const postUploadAi = async (req: Request, res: Response) => {
+    return res.render("client/ai");
+}
+
 export {
-    getHomePage, getCreateUserPage, getProductFilterPage,
+    getHomePage, getCreateUserPage, getProductFilterPage, getAi, postUploadAi,
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser
 };

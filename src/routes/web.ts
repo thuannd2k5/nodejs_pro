@@ -3,6 +3,7 @@ import {
     getCreateUserPage, getHomePage,
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser,
     getProductFilterPage,
+    getAi,
 } from 'controllers/user.controller';
 import { getAdminOrderDetailPage, getAminOrderHistory, getDashboardPage } from 'controllers/admin/dashboard.controller';
 import { getAdminUserPage } from 'controllers/admin/user.controller';
@@ -70,7 +71,7 @@ const webRoutes = (app: Express) => {
     router.get('/admin/order/:id', getAdminOrderDetailPage)
 
 
-
+    router.get('/ai', getAi);
 
     app.use('/', isAdmin, router)
 }
