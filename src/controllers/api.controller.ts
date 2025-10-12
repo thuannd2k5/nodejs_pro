@@ -82,9 +82,18 @@ const loginAPI = async (req: Request, res: Response) => {
         })
     }
 
+}
 
+const fetchAccountAPI = async (req: Request, res: Response) => {
+    const user = req.user;
+
+    res.status(200).json({
+        data: { user }
+    })
 
 }
 
-
-export { getAllUserApi, getUserByIdAPI, createUserApi, updateUserByIdApi, deleteUserByIdApi, loginAPI }
+export {
+    getAllUserApi, getUserByIdAPI, createUserApi, updateUserByIdApi,
+    deleteUserByIdApi, loginAPI, fetchAccountAPI
+}

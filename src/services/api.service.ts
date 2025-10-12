@@ -47,7 +47,10 @@ const handleDeleteUserById = async (id: number) => {
 
 const handleUserLogin = async (username: string, password: string) => {
     const user = await prisma.user.findUnique({
-        where: { username: username }
+        where: { username: username },
+        include: {
+            role: true
+        },
     })
 
     if (!user) {
@@ -66,6 +69,7 @@ const handleUserLogin = async (username: string, password: string) => {
         id: user.id,
         email: user.username,
         roleId: user.roleId,
+        role: user.role,
         accountType: user.accountType,
         avatar: user.avatar,
     }
