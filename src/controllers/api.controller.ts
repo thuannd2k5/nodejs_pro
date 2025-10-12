@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import { handleDeleteUserById, handleGetAllUser, handleGetUserById, handleUpdateUserById } from "services/api.service";
+import { handleDeleteUserById, handleGetAllUser, handleGetUserById, handleUpdateUserById, handleUserLogin } from "services/api.service";
 import { registerNewUser } from "services/auth/auth.service";
 import { RegisterSchema, TRegisterSchema } from "src/validation/Register.schema";
 
 const getAllUserApi = async (req: Request, res: Response) => {
-    const user = await handleGetAllUser();
+    const users = await handleGetAllUser();
+    const user = req.user;
+    console.log(">>>> check user", user);
     res.status(200).json({
-        data: user
+        data: users
     })
 }
 
@@ -64,5 +66,25 @@ const deleteUserByIdApi = async (req: Request, res: Response) => {
 
 }
 
+const loginAPI = async (req: Request, res: Response) => {
 
-export { getAllUserApi, getUserByIdAPI, createUserApi, updateUserByIdApi, deleteUserByIdApi }
+    const { username, password } = req.body;
+
+    try {
+        const access_token = await handleUserLogin(username, password);
+        res.status(200).json({
+            data: { access_token }
+        })
+    } catch (error) {
+        res.status(401).json({
+            data: null,
+            message: error.message
+        })
+    }
+
+
+
+}
+
+
+export { getAllUserApi, getUserByIdAPI, createUserApi, updateUserByIdApi, deleteUserByIdApi, loginAPI }
