@@ -17,7 +17,9 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 //config cors
-app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:3000"]
+}))
 
 
 //config viewengine
