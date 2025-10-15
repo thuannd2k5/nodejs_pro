@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { countTotalProductClientPages, getProduct } from "services/client/item.service";
 import { getProductWithFilter } from "services/client/product.filter";
-import { getAllRoles, getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
+import { getAllMessageById, getAllRoles, getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
 
 const getHomePage = async (req: Request, res: Response) => {
     const { page } = req.query;
@@ -99,11 +99,18 @@ const getAi = async (req: Request, res: Response) => {
     return res.render("client/ai");
 }
 
-const postUploadAi = async (req: Request, res: Response) => {
-    return res.render("client/ai");
+
+const getMessage = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const message = await getAllMessageById(+id);
+
+    return res.render("client/message", {
+        message, userId: id
+    });
 }
 
 export {
-    getHomePage, getCreateUserPage, getProductFilterPage, getAi, postUploadAi,
+    getHomePage, getCreateUserPage, getProductFilterPage, getAi, getMessage,
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser
 };

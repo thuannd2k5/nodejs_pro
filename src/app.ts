@@ -10,8 +10,10 @@ import session from 'express-session';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from '@prisma/client';
 import apiRoutes from 'routes/api';
-import cors from 'cors'
-
+import cors from 'cors';
+import http from 'http';
+import { Server } from 'socket.io';
+import { setupSocket } from './socket';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -79,6 +81,17 @@ app.use((req, res) => {
     res.render('status/404.ejs');
 });
 
-app.listen(8080, () => {
-    console.log(`my app is running on port : ${PORT}`);
-})
+
+const server = http.createServer(app);
+// Khởi tạo socket
+const io = new Server(server, {
+    cors: {
+        origin: ["http://localhost:3000"], // Cho phép FE kết nối
+        methods: ["GET", "POST"]
+    }
+});
+setupSocket(io); // ✅ khởi tạo socket
+
+server.listen(PORT, () => {
+    console.log(`🚀 Server chạy tại http://localhost:${PORT}`);
+});

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat với Admin</title>
+    <link rel="stylesheet" href="/client/css/message.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>💬 Chat với Admin</h3>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+            <% if (message && message.length> 0) { %>
+                <% message.forEach(m=> { %>
+                    <div class="message <%= m.fromId === userId ? 'from-me' : 'from-admin' %>">
+                        <div class="content">
+                            <%= m.content %>
+                        </div>
+                        <span class="time">
+                            <%= new Date(m.createdAt).toLocaleTimeString('vi-VN', { hour: '2-digit' , minute: '2-digit'
+                                }) %>
+                        </span>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <p class="no-message">Chưa có tin nhắn nào.</p>
+                            <% } %>
+        </div>
+
+        <form id="chatForm" class="chat-input">
+            <input type="hidden" id="userId" value="<%= userId %>">
+            <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." autocomplete="off" required>
+            <button type="submit">Gửi</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/js/message.js"></script>
+</body>
+
+</html>

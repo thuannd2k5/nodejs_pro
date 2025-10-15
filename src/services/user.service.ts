@@ -111,7 +111,28 @@ const getAllRoles = async () => {
     return roles;
 }
 
+const getAllMessageById = async (id: number) => {
+    try {
+        const message = await prisma.message.findMany({
+            where: {
+                OR: [
+                    { fromId: id },
+                    { toId: id },
+                ],
+            },
+            orderBy: {
+                createdAt: "asc",
+            },
+        });
+        return message;
+    } catch (error) {
+        console.error("Error fetching messages:", error);
+        throw error;
+    }
+}
+
+
 export {
-    handleCreateUser, getAllUsers, handleDeleteUser, getUserById,
+    handleCreateUser, getAllUsers, handleDeleteUser, getUserById, getAllMessageById,
     handleUpdateUser, getAllRoles, hashPassword, comparePassword, countTotalUserPages
 }

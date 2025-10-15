@@ -4,6 +4,7 @@ import {
     postCreateUserPage, postDeleteUserPage, getViewUser, postUpdateUser,
     getProductFilterPage,
     getAi,
+    getMessage,
 } from 'controllers/user.controller';
 import { getAdminOrderDetailPage, getAminOrderHistory, getDashboardPage } from 'controllers/admin/dashboard.controller';
 import { getAdminUserPage } from 'controllers/admin/user.controller';
@@ -46,6 +47,8 @@ const webRoutes = (app: Express) => {
     router.get('/order-history', getAminOrderHistory)
     router.post('/add-to-cart-from-detail-page/:id', postAddToCartFromDetailPage);
 
+    router.get('/message/:id', getMessage)
+
     //admin
     router.get('/admin', getDashboardPage);
     router.get('/admin/user', getAdminUserPage);
@@ -69,6 +72,8 @@ const webRoutes = (app: Express) => {
 
     router.get('/admin/order', getAdminOrderPage);
     router.get('/admin/order/:id', getAdminOrderDetailPage)
+
+    router.get('/admin/chat')
 
 
     router.get('/ai', getAi);
